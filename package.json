@@ -1,0 +1,51 @@
+{
+  "name": "gitloader",
+  "version": "1.0.0",
+  "description": "download git file/folder from command line",
+  "main": "./build/cli.js",
+  "author": "DNI9",
+  "license": "MIT",
+  "homepage": "https://github.com/DNI9/gitloader-cli",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "package:linux": "pkg . --no-bytecode",
+    "package": "npm run build && npm run package:linux",
+    "format": "prettier --loglevel warn --write \"**/*.{ts,js,json,yaml}\"",
+    "format:check": "prettier --loglevel warn --check \"**/*.{ts,js,json,yaml}\"",
+    "lint": "eslint \"src/**/*.ts\" --fix",
+    "lint:check": "eslint \"src/**/*.ts\""
+  },
+  "dependencies": {
+    "yargs": "^17.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.4",
+    "@types/yargs": "^17.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/parser": "^5.8.0",
+    "eslint": "^8.5.0",
+    "eslint-config-prettier": "^8.3.0",
+    "pkg": "^5.5.1",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.4"
+  },
+  "bin": {
+    "gitloader": "./build/cli.js"
+  },
+  "pkg": {
+    "scripts": "build/**/*.js",
+    "targets": [
+      "node14-linux-x64",
+      "node14-win-x64"
+    ],
+    "outputPath": "dist"
+  },
+  "keywords": [
+    "cli",
+    "git",
+    "downloader"
+  ]
+}
