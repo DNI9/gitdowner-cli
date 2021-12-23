@@ -2,6 +2,7 @@
 
 import yargs from 'yargs'
 import {hideBin} from 'yargs/helpers'
+import handleError from './handleError'
 
 yargs(hideBin(process.argv))
   // Use the commands directory to scaffold.
@@ -27,4 +28,5 @@ yargs(hideBin(process.argv))
   .strict()
   // Useful aliases.
   .alias({h: 'help'})
-  .alias({v: 'version'}).argv
+  .alias({v: 'version'})
+  .fail(handleError).argv
