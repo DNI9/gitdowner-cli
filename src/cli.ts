@@ -29,4 +29,5 @@ yargs(hideBin(process.argv))
   // Useful aliases.
   .alias({h: 'help'})
   .alias({v: 'version'})
+  .epilogue('More info at: https://github.com/DNI9/gitloader-cli/')
   .fail(handleError).argv
