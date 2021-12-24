@@ -14,14 +14,14 @@
   },
   "scripts": {
     "build": "tsc",
-    "package:linux": "pkg . --no-bytecode",
-    "package": "npm run build && npm run package:linux",
+    "package": "npm run build && pkg . --no-bytecode",
     "format": "prettier --loglevel warn --write \"**/*.{ts,js,json,yaml}\"",
     "format:check": "prettier --loglevel warn --check \"**/*.{ts,js,json,yaml}\"",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "lint:check": "eslint \"src/**/*.ts\""
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "chalk": "4.1.2",
     "ora": "5.4.1",
     "yargs": "^17.3.0"
