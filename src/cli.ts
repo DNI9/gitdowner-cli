@@ -10,7 +10,7 @@ yargs(hideBin(process.argv))
   // Default command if none supplied - shows help.
   .command(
     '$0',
-    'gitloader usage',
+    'gitdowner usage',
     () => undefined,
     () => {
       yargs.showHelp()
@@ -29,5 +29,5 @@ yargs(hideBin(process.argv))
   // Useful aliases.
   .alias({h: 'help'})
   .alias({v: 'version'})
-  .epilogue('More info at: https://github.com/DNI9/gitloader-cli/')
+  .epilogue('More info at: https://github.com/DNI9/gitdowner-cli')
   .fail(handleError).argv

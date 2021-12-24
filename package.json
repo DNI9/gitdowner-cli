@@ -1,11 +1,14 @@
 {
-  "name": "gitloader",
+  "name": "gitdowner",
   "version": "1.0.0",
-  "description": "download git file/folder from command line",
+  "description": "Download github directory from command line",
   "main": "./build/cli.js",
-  "author": "DNI9",
+  "author": {
+    "email": "itsr9boi9@gmail.com",
+    "name": "DNI9"
+  },
   "license": "MIT",
-  "homepage": "https://github.com/DNI9/gitloader-cli",
+  "homepage": "https://github.com/DNI9/gitdowner-cli",
   "engines": {
     "node": ">=14.0.0"
   },
@@ -20,6 +23,7 @@
   },
   "dependencies": {
     "chalk": "4.1.2",
+    "ora": "5.4.1",
     "yargs": "^17.3.0"
   },
   "devDependencies": {
@@ -34,7 +38,7 @@
     "typescript": "^4.5.4"
   },
   "bin": {
-    "gitloader": "./build/cli.js"
+    "gitdowner": "./build/cli.js"
   },
   "pkg": {
     "scripts": "build/**/*.js",
@@ -47,6 +51,7 @@
   "keywords": [
     "cli",
     "git",
+    "github",
     "downloader"
   ]
 }
