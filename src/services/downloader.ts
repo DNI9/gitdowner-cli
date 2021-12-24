@@ -11,18 +11,9 @@ const getUrl = (url: string) => {
     .replace('https://github.com/', '')
     .split('/')
 
-  let apiUrl: string
-
-  if (url.endsWith('/')) {
-    path.pop()
-    apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${path.join(
-      '/',
-    )}`
-  } else {
-    apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${path.join(
-      '/',
-    )}`
-  }
+  let apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/`
+  if (url.endsWith('/')) path.pop()
+  apiUrl += `${path.join('/')}`
   return apiUrl
 }
 
