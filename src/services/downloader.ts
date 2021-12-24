@@ -14,6 +14,7 @@ const getUrl = (url: string) => {
   let apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/`
   if (url.endsWith('/')) path.pop()
   apiUrl += `${path.join('/')}`
+  if (!path.length) throw new Error('Link must contain a specific directory')
   return apiUrl
 }
 
