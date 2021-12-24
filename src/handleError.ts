@@ -1,8 +1,9 @@
+import axios, {AxiosError} from 'axios'
 import chalk from 'chalk'
 import {EOL} from 'os'
 
 const printMessage = (message: string) => {
-  process.stderr.write(chalk.red(`Error: ${message}`) + EOL)
+  process.stderr.write(chalk.red(`\nError: ${message}`) + EOL)
   process.stderr.write(
     `Hint: Use the ${chalk.green(
       '--help',
@@ -16,12 +17,15 @@ export default async (message: string, error: Error): Promise<never> => {
     process.exit(1)
   }
 
-  const errorMessage = error.message ?? 'Unknown error occurred'
+  let errorMessage = error.message ?? 'Unknown error occurred'
 
-  // if (error instanceof Response) {
-  //   const {ErrorMessage} = await error.json()
-  //   if (ErrorMessage) errorMessage = ErrorMessage
-  // }
+  if (axios.isAxiosError(error)) {
+    const axiosError: AxiosError = error
+    errorMessage =
+      'An error occurred while fetching data ' +
+      'Response:' +
+      axiosError.message
+  }
 
   printMessage(errorMessage)
   process.exit(1)
