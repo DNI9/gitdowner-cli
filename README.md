@@ -1,10 +1,12 @@
 # Gitdowner CLI
 
-Download github folder/directory from CLI with single command
+Download github directory from CLI with single command
+
+![demo](demo.gif)
 
 ## Usage
 
-Simply run with npx
+Simply run with npx (nodejs must be installed locally)
 
 ```bash
   npx gitdowner d <url>
