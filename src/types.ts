@@ -6,3 +6,8 @@ export interface GitResponseType {
   download_url: string
   type: string
 }
+
+export type FileData = {
+  path: string
+  data: string
+}

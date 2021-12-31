@@ -1,42 +1,34 @@
 import axios from 'axios'
-import fs, {promises as asyncfs} from 'fs'
 import ora from 'ora'
-import {GitResponseType} from '../types'
-
-const createDir = (path: string) =>
-  !fs.existsSync(path) && fs.mkdirSync(path, {recursive: true})
-
-const getUrl = (url: string) => {
-  const [username, repo, , , ...path] = url
-    .replace('https://github.com/', '')
-    .split('/')
-
-  let apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/`
-  if (url.endsWith('/')) path.pop()
-  apiUrl += `${path.join('/')}`
-  if (!path.length) throw new Error('Link must contain a specific directory')
-  return apiUrl
-}
+import {FileData, GitResponseType} from '../types'
+import {createDir, downloader, fileWriter, getUrl} from '../utils'
 
 const spinner = ora({interval: 150})
 
-const makeRequest = async (url: string, dir: string) => {
-  createDir(dir)
+const makeRequest = async (url: string, baseDir: string) => {
+  createDir(baseDir)
   const {data} = await axios.get<GitResponseType[]>(url)
-  for (const e of data) {
-    if (e.type === 'dir') {
-      const newDir = dir + '/' + e.name
-      await makeRequest(e.url, newDir)
-    } else {
-      const file = dir + '/' + e.name
-      spinner.text = `Downloading ${file}`
-      const {data} = await axios.get(e.download_url, {responseType: 'blob'})
-      await asyncfs.writeFile(
-        file,
-        typeof data === 'object' ? JSON.stringify(data, null, 2) : data,
-      )
+  const files = data.filter(e => e.type === 'file')
+  const dirs = data.filter(e => e.type === 'dir')
+
+  if (files.length) {
+    spinner.text = `Downloading ${baseDir}...`
+    const fileUrls = files.map(e => e.download_url)
+    const res = await downloader(fileUrls)
+
+    const fileData: FileData[] = []
+    for (const r of res) {
+      if (r.status === 'fulfilled') {
+        fileData.push({
+          path: baseDir + '/' + r.value.config?.url?.split('/').pop(),
+          data: r.value.data,
+        })
+      }
     }
+    if (fileData.length) await fileWriter(fileData)
   }
+
+  for (const e of dirs) await makeRequest(e.url, baseDir + '/' + e.name)
 }
 
 export const handleDownload = async (input: string) => {
