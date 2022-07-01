@@ -1,17 +1,14 @@
 {
   "name": "gitdowner",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Download github directory from command line",
-  "main": "./build/cli.js",
-  "author": {
-    "email": "itsr9boi9@gmail.com",
-    "name": "DNI9"
+  "main": "dist/cli.js",
+  "bin": {
+    "gitdowner": "dist/cli.js"
   },
-  "license": "MIT",
-  "homepage": "https://github.com/DNI9/gitdowner-cli",
-  "engines": {
-    "node": ">=14.0.0"
-  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "package": "npm run build && pkg . --no-bytecode",
@@ -37,16 +34,30 @@
     "prettier": "^2.5.1",
     "typescript": "^4.5.4"
   },
-  "bin": {
-    "gitdowner": "./build/cli.js"
-  },
   "pkg": {
-    "scripts": "build/**/*.js",
+    "scripts": "dist/**/*.js",
     "targets": [
       "node14-linux-x64",
       "node14-win-x64"
     ],
     "outputPath": "dist"
+  },
+  "engines": {
+    "npm": ">=5.5.0",
+    "node": ">=14.0.0"
+  },
+  "author": {
+    "email": "itsr9boi9@gmail.com",
+    "name": "DNI9"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/DNI9/gitdowner-cli",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DNI9/gitdowner-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DNI9/gitdowner-cli/issues"
   },
   "keywords": [
     "cli",
